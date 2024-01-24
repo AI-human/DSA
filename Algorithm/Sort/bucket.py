@@ -4,9 +4,9 @@ arr = list(map(int,input().split()))
 
 def bucketSort(list):
     mx = max(list)    
-    if max>1e5:
+    if mx>1e5:
         return 'range is to big'
-    cnts = [0 for i in range(max+1)]
+    cnts = [0]*(mx+1)
     print(cnts)
 
     for i in range(len(list)):
