@@ -8,9 +8,9 @@ def insert(root,x):
   if not root:
     return TreeNode(x)
   
-  elif  root.val< x: 
+  if  root.val< x: 
     root.right = insert(root.right,x)
-  elif root.val> x:
+  else:
     root.left = insert(root.left,x)
   return root
 
@@ -56,13 +56,60 @@ def remove(root, x):
 
 
 
-def inorder_traversal(root):
+# tree traversal O(n) -- DFS
+
+def inorder(root): # Left,Root,Right
     if root:
-        inorder_traversal(root.left)  # Visit left subtree
+        inorder(root.left)  # Visit left subtree
         print(root.val)              # Visit root node
-        inorder_traversal(root.right) # Visit right subtree
+        inorder(root.right) # Visit right subtree
+def inorder_iterative(root):
+    st = []
+    cur = root
+    while True:
+        if cur is not None:
+            st.append(cur)
+            cur = cur.left
+        elif(st):
+            cur = st.pop()
+            print(cur.val, end=" ")
+            cur = cur.right
+        else:
+            break
+    print()
 
 
+def preorder(root): # Root, Left, Right
+   if root:
+      print(root.val)
+      preorder(root.left)
+      preorder(root.right)
+
+
+def postorder(root): # Left, Right, Root 
+   if root:
+      postorder(root.left)
+      postorder(root.right)
+      print(root.val)
+
+# tree traversal O(n)----> BFS
+      
+def bfs(root):
+  queue = []
+  if root:
+    queue.append(root)
+  
+  lvl = 0 
+  while len(queue)>0:
+    print("level :",lvl)
+    for i in range(len(queue)):
+      cur = queue.pop(0)
+      print(cur.val)
+      if cur.left:
+        queue.append(cur.left)
+      if cur.right:
+        queue.append(cur.right)
+    lvl += 1
 
 
 
@@ -75,12 +122,13 @@ def inorder_traversal(root):
 '''
 tr = TreeNode(4)
 
-l = [2,3,6,5,7]
+l = [3,2,6,5,7]
 for i in l:
   insert(tr,i)
 
-remove(tr,4)
-inorder_traversal(tr)
+# remove(tr,4)
+# inorder(tr.right)
+bfs(tr)
 
 
-    
+  
